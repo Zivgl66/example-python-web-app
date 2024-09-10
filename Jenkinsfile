@@ -24,7 +24,7 @@ pipeline {
                             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
                             aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
                             aws configure set default.region $AWS_DEFAULT_REGION
-                            eval $(aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | sed 's|https://||') | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${REPO_NAME}
+                            eval \$(aws ecr get-login-password --region ${AWS_DEFAULT_REGION}) | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${REPO_NAME}
                         """
                     }
                 }
