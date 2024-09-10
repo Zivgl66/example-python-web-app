@@ -39,7 +39,7 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image to ECR') {
+        stage('Push Docker Image to AWS ECR') {
             steps {
                 script {
                     sh "docker push ${DOCKER_IMAGE}"
