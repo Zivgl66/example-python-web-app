@@ -7,6 +7,7 @@ pipeline {
         REPO_NAME = 'zivgl66/pythonapp' 
         IMAGE_TAG = "${env.BUILD_ID}" 
         DOCKER_IMAGE = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${REPO_NAME}:${IMAGE_TAG}"
+        GIT_K8S_REPO = "https://github.com/Zivgl66/Bank_Leumi"
     }
 
     stages {
@@ -46,8 +47,26 @@ pipeline {
                 }
             }
         }
-    }
 
+        stage('Update GitOps Repo') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'gitops-credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                        sh """
+                            git clone ${GIT_K8S_REPO}
+                            cd Kubernetes
+                            sed -i 's|image: .*|image: ${DOCKER_IMAGE}|' deployment.yaml
+                            git config --global user.email "jenkins@your-domain.com"
+                            git config --global user.name "Jenkins"
+                            git add deployment.yaml
+                            git commit -m "Update image to ${DOCKER_IMAGE}"
+                            git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${GIT_K8S_REPO} HEAD:main
+                        """
+                    }
+                }
+            }
+        }
+    }
     post {
         always {
             cleanWs()
