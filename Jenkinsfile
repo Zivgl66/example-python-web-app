@@ -54,7 +54,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'github_token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                         sh """
                             git clone ${GIT_K8S_REPO}
-                            cd /Bank_Leumi/Kubernetes
+                            cd ./Bank_Leumi/Kubernetes
                             sed -i 's|image: .*|image: ${DOCKER_IMAGE}|' deployment.yaml
                             git config --global user.email "jenkins@your-domain.com"
                             git config --global user.name "Jenkins"
@@ -69,7 +69,7 @@ pipeline {
     }
     post {
         always {
-            cleanWs()
+            // cleanWs()
         }
     }
 }
