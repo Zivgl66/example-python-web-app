@@ -7,7 +7,7 @@ pipeline {
         REPO_NAME = 'zivgl66/pythonapp' 
         IMAGE_TAG = "${env.BUILD_ID}" 
         DOCKER_IMAGE = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${REPO_NAME}:${IMAGE_TAG}"
-        GIT_K8S_REPO = "https://github.com/Zivgl66/Bank_Leumi"
+        GIT_K8S_REPO = "github.com/Zivgl66/Bank_Leumi"
     }
 
     stages {
@@ -53,7 +53,7 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github_token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                         sh """
-                            git clone ${GIT_K8S_REPO}
+                            git clone https://${GIT_K8S_REPO}
                             cd ./Bank_Leumi/Kubernetes
                             sed -i 's|image: .*|image: ${DOCKER_IMAGE}|' deployment.yaml
                             git config --global user.email "jenkins@your-domain.com"
