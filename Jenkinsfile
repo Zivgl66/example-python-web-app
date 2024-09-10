@@ -34,7 +34,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${DOCKER_IMAGE} ."
+                    sh "sudo docker build -t ${DOCKER_IMAGE} ."
                 }
             }
         }
@@ -42,7 +42,7 @@ pipeline {
         stage('Push Docker Image to ECR') {
             steps {
                 script {
-                    sh "docker push ${DOCKER_IMAGE}"
+                    sh "sudo docker push ${DOCKER_IMAGE}"
                 }
             }
         }
