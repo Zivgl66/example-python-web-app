@@ -41,7 +41,7 @@ Start the Flask development server with:
 python app.py
 ```
 
-The app will be running at `http://127.0.0.1:5000/`.
+The app will be running at `http://127.0.0.1:3333/`.
 
 ## Docker Support
 
@@ -56,10 +56,10 @@ docker build -t python-web-app .
 ### 2. Run the Docker container
 
 ```bash
-docker run -p 5000:5000 python-web-app
+docker run -p 3333:3333 python-web-app
 ```
 
-The app will now be accessible at `http://localhost:5000/`.
+The app will now be accessible at `http://localhost:3333/`.
 
 ## Deployment
 
