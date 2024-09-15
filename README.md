@@ -64,7 +64,3 @@ The app will now be accessible at `http://localhost:3333/`.
 ## Deployment
 
 This app can be deployed on any platform that supports Python and Flask, including cloud platforms (AWS, GCP, Azure), Docker, or even Kubernetes clusters.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
